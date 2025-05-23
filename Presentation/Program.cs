@@ -8,6 +8,8 @@ var builder = FunctionsApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 
+
+
 builder.ConfigureFunctionsWebApplication();
 
 builder.Services

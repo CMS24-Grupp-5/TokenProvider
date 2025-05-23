@@ -5,14 +5,17 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
+using Presentation;
+using System.Net.Http.Headers;
+
 
 namespace Presentation.Methods;
 
 public class TokenService : ITokenService
 {
-
     public async Task<TokenResponse> GenerateAccessToken(TokenRequest tokenRequest, int expiresInDays = 30)
     {
+
 
         try
         {
@@ -32,7 +35,6 @@ public class TokenService : ITokenService
 
 
 
-            //hämta en avnädaren baser på tokenrequest.UserId
 
             //using var http = new HttpClient();
             //var response = await http.PostAsJsonAsync("https://api.example.com/claims", tokenRequest);
@@ -41,7 +43,11 @@ public class TokenService : ITokenService
             //    throw new Exception("User is invalid");
             //}
 
-            
+            var userService = new UserService();
+            bool exists = await userService.CheckUserExist(tokenRequest.UserId);
+
+
+
 
             if (!string.IsNullOrEmpty(tokenRequest.Email))
             {
@@ -116,6 +122,9 @@ public class TokenService : ITokenService
             //    throw new NullReferenceException("User not found");
             //}
 
+            var userService = new UserService();
+            bool exists = await userService.CheckUserExist(userId);
+
 
             return new ValidationResponse
             {
@@ -133,3 +142,6 @@ public class TokenService : ITokenService
         }
     }
 }
+
+
+
