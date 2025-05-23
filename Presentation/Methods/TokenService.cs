@@ -36,13 +36,6 @@ public class TokenService : ITokenService
 
 
 
-            //using var http = new HttpClient();
-            //var response = await http.PostAsJsonAsync("https://api.example.com/claims", tokenRequest);
-            //if (!response.IsSuccessStatusCode)
-            //{
-            //    throw new Exception("User is invalid");
-            //}
-
             var userService = new UserService();
             bool exists = await userService.CheckUserExist(tokenRequest.UserId);
 
@@ -112,18 +105,9 @@ public class TokenService : ITokenService
 
             var userId = principal.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new NullReferenceException("UserId in claims is null");
 
-            //hämta en avnädaren baser på userId
-
-
-            //using var http = new HttpClient();
-            //var response = await http.GetAsync($"..../{userId}");
-            //if (!response.IsSuccessStatusCode)
-            //{
-            //    throw new NullReferenceException("User not found");
-            //}
 
             var userService = new UserService();
-            bool exists = await userService.CheckUserExist(userId);
+            bool exists = await userService.CheckUserExist(validationRequest.UserId);
 
 
             return new ValidationResponse
