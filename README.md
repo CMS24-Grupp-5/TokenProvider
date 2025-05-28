@@ -30,6 +30,24 @@ Ensure the following are set for the service to work:
 
 ## 🚀 API Endpoints
 
+### `POST /api/GenerateToken`
+
+**Generates a JWT token.**
+
+**Request body:**
+
+```json
+{
+  "userId": "string"
+}
+```
+
+**Responses:**
+
+* `200 OK` – Token is generated
+* `400 Bad Request` – UserId is invalid
+
+
 ### `POST /api/ValidateToken`
 
 **Validates a JWT token.**
@@ -46,7 +64,7 @@ Ensure the following are set for the service to work:
 **Responses:**
 
 * `200 OK` – Token is valid
-* `400 Bad Request` – Token is invalid or request is malformed
+* `400 Bad Request` – Token is invalid or userId is invalid
 
 ## 📡 External Dependency
 
